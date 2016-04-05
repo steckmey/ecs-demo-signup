@@ -4,16 +4,6 @@ python:
   - 2.7
 
 build:
-    pre_ci:
-      - pip install -r requirements.txt
-      - mkdir -p shippable/testresults
-      - mkdir -p shippable/codecoverage
-
-    ci:
-      - nosetests test.py --with-xunit --xunit-file=shippable/testresults/nosetests.xml
-      - which python && coverage run --branch test.py
-      - which python && coverage xml -o shippable/codecoverage/coverage.xml test.py
-
     post_ci:
       - docker build -t 560846014933.dkr.ecr.us-east-1.amazonaws.com/dstroppa/ecs-demo-signup:$BRANCH.$BUILD_NUMBER .
 
