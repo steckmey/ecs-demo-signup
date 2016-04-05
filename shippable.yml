@@ -14,3 +14,13 @@ script:
   - nosetests test.py --with-xunit --xunit-file=shippable/testresults/nosetests.xml
   - which python && coverage run --branch test.py
   - which python && coverage xml -o shippable/codecoverage/coverage.xml test.py
+
+build:
+    post_ci:
+        - docker build -t dstroppa/ecs-demo-signup .
+        - docker push dstroppa/ecs-demo-signup
+
+integrations:
+    hub:
+      - integrationName: "Amazon ECR"
+        type: ecr
