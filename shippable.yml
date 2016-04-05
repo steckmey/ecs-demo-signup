@@ -3,22 +3,22 @@ language: python
 python:
   - 2.7
 
-install:
-  - pip install -r requirements.txt
-
-before_script:
-  - mkdir -p shippable/testresults
-  - mkdir -p shippable/codecoverage
-
-script:
-  - nosetests test.py --with-xunit --xunit-file=shippable/testresults/nosetests.xml
-  - which python && coverage run --branch test.py
-  - which python && coverage xml -o shippable/codecoverage/coverage.xml test.py
-
 build:
+    pre_ci:
+      - pip install -r requirements.txt
+      - mkdir -p shippable/testresults
+      - mkdir -p shippable/codecoverage
+
+    ci:
+      - nosetests test.py --with-xunit --xunit-file=shippable/testresults/nosetests.xml
+      - which python && coverage run --branch test.py
+      - which python && coverage xml -o shippable/codecoverage/coverage.xml test.py
+
     post_ci:
-        - docker build -t dstroppa/ecs-demo-signup .
-        - docker push dstroppa/ecs-demo-signup
+      - docker build -t 560846014933.dkr.ecr.us-east-1.amazonaws.com/dstroppa/ecs-demo-signup:$BRANCH.$BUILD_NUMBER .
+
+    push:
+      - docker push 560846014933.dkr.ecr.us-east-1.amazonaws.com/dstroppa/ecs-demo-signup:$BRANCH.$BUILD_NUMBER
 
 integrations:
     hub:
