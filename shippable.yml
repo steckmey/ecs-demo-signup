@@ -5,10 +5,10 @@ python:
 
 build:
     post_ci:
-      - docker build -t 560846014933.dkr.ecr.us-east-1.amazonaws.com/dstroppa/ecs-demo-signup:$BRANCH.$BUILD_NUMBER .
+      - docker build -t 005505311400.dkr.ecr.us-east-1.amazonaws.com/ecs-demo-signup:$BRANCH.$BUILD_NUMBER .
 
     push:
-      - docker push 560846014933.dkr.ecr.us-east-1.amazonaws.com/dstroppa/ecs-demo-signup:$BRANCH.$BUILD_NUMBER
+      - docker push 005505311400.dkr.ecr.us-east-1.amazonaws.com/ecs-demo-signup:$BRANCH.$BUILD_NUMBER
 
 integrations:
     hub:
