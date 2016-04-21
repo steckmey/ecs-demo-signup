@@ -12,5 +12,5 @@ build:
 
 integrations:
     hub:
-      - integrationName: "Amazon ECR"
+      - integrationName: "ECR"
         type: ecr
